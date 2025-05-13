@@ -9,6 +9,11 @@
 
 import config from '@/sanity.config'
 import {NextStudio} from 'next-sanity/studio'
+import { Hero } from '@/components/blocks/Hero';
+import { Features } from '@/components/blocks/Features';
+import { SplitImage } from '@/components/blocks/SplitImage';
+import { FAQs } from '@/components/blocks/FAQs';
+// import ImageSlider from '@/components/blocks/imageSlider';
 
 export const dynamic = 'force-static'
 

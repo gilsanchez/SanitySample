@@ -12,6 +12,19 @@ import {Suspense} from 'react'
 import {Toaster} from 'sonner'
 import {handleError} from './client-functions'
 import {DraftModeToast} from './DraftModeToast'
+import { Hero } from '@/components/blocks/Hero';
+import { Features } from '@/components/blocks/Features';
+import { SplitImage } from '@/components/blocks/SplitImage';
+import { FAQs } from '@/components/blocks/FAQs';
+ import ImageSlider from '@/components/blocks/imageSlider';
+import { Block } from '@/types/blocks';
+
+interface SettingsData {
+  _id: string;
+  _type: string;
+  footer: any[] | null;
+  blocks?: Block[];
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const [{data: settings}, {data: homePage}] = await Promise.all([
@@ -43,11 +56,31 @@ export const viewport: Viewport = {
 
 export default async function IndexRoute({children}: {children: React.ReactNode}) {
   const {data} = await sanityFetch({query: settingsQuery})
+  const {blocks} = data as SettingsData ?? {};
+
   return (
     <>
       <div className="flex min-h-screen flex-col bg-white text-black">
         <Navbar data={data} />
-        <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>
+        <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">
+          {children}
+          {blocks?.map((block) => {
+            switch (block._type) {
+              case 'hero':
+                return <Hero key={block._key} {...block} />;
+              case 'features':
+                return <Features key={block._key} {...block} />;
+              case 'splitImage':
+                return <SplitImage key={block._key} {...block} />;
+              case 'faqs':
+                return <FAQs key={block._key} {...block} />;
+              case 'imageSlider':
+                return <ImageSlider key={block._key} />;
+              default:
+                return null;
+            }
+          })}
+        </div>
         <footer className="bottom-0 w-full bg-white py-12 text-center md:py-20">
           {data?.footer && (
             <CustomPortableText
@@ -60,7 +93,7 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
           )}
         </footer>
         <Suspense>
-          <IntroTemplate />
+       
         </Suspense>
       </div>
       <Toaster />
@@ -74,3 +107,4 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
     </>
   )
 }
+      /*  <IntroTemplate />  */

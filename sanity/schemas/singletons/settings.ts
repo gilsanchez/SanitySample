@@ -28,6 +28,9 @@ export default defineType({
             {
               type: 'project',
             },
+            {
+              type: 'htmlContent',
+            },
           ],
         },
       ],
@@ -67,6 +70,19 @@ export default defineType({
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'blocks',
+      title: 'Content Blocks',
+      type: 'array',
+      description: 'Add, edit, and reorder content blocks',
+      of: [
+        defineArrayMember({ type: 'hero' }),
+        defineArrayMember({ type: 'features' }),
+        defineArrayMember({ type: 'splitImage' }),
+        defineArrayMember({ type: 'faqs' }),
+        defineArrayMember({ type: 'imageSlider' }),
+      ],
     }),
   ],
   preview: {

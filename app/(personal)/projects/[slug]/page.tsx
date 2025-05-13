@@ -10,9 +10,32 @@ import {createDataAttribute, toPlainText} from 'next-sanity'
 import {draftMode} from 'next/headers'
 import Link from 'next/link'
 import {notFound} from 'next/navigation'
+import { Hero } from '@/components/blocks/Hero';
+import { Features } from '@/components/blocks/Features';
+import { SplitImage } from '@/components/blocks/SplitImage';
+import { FAQs } from '@/components/blocks/FAQs';
+import ImageSlider from '@/components/blocks/imageSlider';
+import { Block } from '@/types/blocks';
 
 type Props = {
   params: Promise<{slug: string}>
+}
+
+interface ProjectData {
+  _id: string;
+  _type: string;
+  title: string | null;
+  overview: any[] | null;
+  client: string | null;
+  coverImage: any;
+  description: any;
+  duration: {
+    start: string;
+    end?: string;
+  };
+  site: string | null;
+  tags: string[];
+  blocks?: Block[];
 }
 
 export async function generateMetadata(
@@ -68,7 +91,7 @@ export default async function ProjectSlugRoute({params}: Props) {
       : null
 
   // Default to an empty object to allow previews on non-existent documents
-  const {client, coverImage, description, duration, overview, site, tags, title} = data ?? {}
+  const {client, coverImage, description, duration, overview, site, tags, title, blocks} = data as ProjectData ?? {}
 
   const startYear = new Date(duration?.start!).getFullYear()
   const endYear = duration?.end ? new Date(duration?.end).getFullYear() : 'Now'
@@ -152,6 +175,22 @@ export default async function ProjectSlugRoute({params}: Props) {
             value={description as any}
           />
         )}
+        {blocks?.map((block) => {
+          switch (block._type) {
+            case 'hero':
+              return <Hero key={block._key} {...block} />;
+            case 'features':
+              return <Features key={block._key} {...block} />;
+            case 'splitImage':
+              return <SplitImage key={block._key} {...block} />;
+            case 'faqs':
+              return <FAQs key={block._key} {...block} />;
+            case 'imageSlider':
+              return <ImageSlider key={block._key} />;
+            default:
+              return null;
+          }
+        })}
       </div>
       <div className="absolute left-0 w-screen border-t" />
     </div>

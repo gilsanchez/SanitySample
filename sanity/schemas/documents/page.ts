@@ -23,6 +23,21 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'storeType',
+      title: 'Store Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Books', value: 'books' },
+          { title: 'DVD', value: 'dvd' },
+          { title: 'Music', value: 'music' },
+          { title: 'Gifts', value: 'gifts' },
+          { title: 'Toys', value: 'toys' },
+          { title: 'Electronics', value: 'electronics' },
+        ],
+      },
+    }),
+    defineField({
       name: 'overview',
       description:
         'Used both for the <meta> description tag for SEO, and the personal website subheader.',
@@ -81,10 +96,6 @@ export default defineType({
         }),
         // Custom blocks
         defineArrayMember({
-          name: 'timeline',
-          type: 'timeline',
-        }),
-        defineField({
           type: 'image',
           icon: ImageIcon,
           name: 'image',
@@ -112,6 +123,19 @@ export default defineType({
             }),
           ],
         }),
+      ],
+    }),
+    defineField({
+      name: 'blocks',
+      title: 'Content Blocks',
+      type: 'array',
+      description: 'Add, edit, and reorder content blocks',
+      of: [
+        defineArrayMember({ type: 'hero' }),
+        defineArrayMember({ type: 'features' }),
+        defineArrayMember({ type: 'splitImage' }),
+        defineArrayMember({ type: 'faqs' }),
+        defineArrayMember({ type: 'imageSlider' }),
       ],
     }),
   ],

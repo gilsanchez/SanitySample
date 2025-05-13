@@ -69,7 +69,8 @@ export default defineType({
     defineField({
       name: 'duration',
       title: 'Duration',
-      type: 'duration',
+      type: 'string',
+      description: 'Project duration (e.g. "3 months", "2020-2021")',
     }),
     defineField({
       name: 'client',
@@ -116,10 +117,6 @@ export default defineType({
           styles: [],
         }),
         // Custom blocks
-        defineArrayMember({
-          name: 'timeline',
-          type: 'timeline',
-        }),
         defineField({
           type: 'image',
           icon: ImageIcon,
@@ -150,5 +147,31 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'blocks',
+      title: 'Content Blocks',
+      type: 'array',
+      description: 'Add, edit, and reorder content blocks',
+      of: [
+        defineArrayMember({ type: 'hero' }),
+        defineArrayMember({ type: 'features' }),
+        defineArrayMember({ type: 'splitImage' }),
+        defineArrayMember({ type: 'faqs' }),
+        defineArrayMember({ type: 'imageSlider' }),
+      ],
+    }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      date: 'date',
+      media: 'coverImage',
+    },
+    prepare({title, media}) {
+      return {
+        title,
+        media,
+      }
+    },
+  },
 })

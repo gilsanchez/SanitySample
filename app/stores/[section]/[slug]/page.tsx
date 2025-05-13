@@ -10,6 +10,11 @@ import { Hero } from '@/components/blocks/Hero';
 import { Features } from '@/components/blocks/Features';
 import { SplitImage } from '@/components/blocks/SplitImage';
 import { FAQs } from '@/components/blocks/FAQs';
+ 
+
+import StorePage from '@/components/pages/StorePage'
+
+
 import ImageSlider from '@/components/blocks/imageSlider';
 import { Block } from '@/types/blocks';
 
@@ -63,7 +68,7 @@ export default async function PageSlugRoute({params}: Props) {
   const {body, overview, title, blocks} = data as PageData ?? {}
 
   return (
-    <div>
+    <div className="container mx-auto px-4 py-8">
       <div className="mb-14">
         {/* Header */}
         <Header
@@ -103,8 +108,7 @@ export default async function PageSlugRoute({params}: Props) {
       </div>
       <div className="absolute left-0 w-screen border-t" />
     </div>
+    
   )
 }
-
-
  

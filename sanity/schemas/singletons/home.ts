@@ -27,20 +27,7 @@ export default defineType({
         defineArrayMember({
           lists: [],
           marks: {
-            annotations: [
-              {
-                name: 'link',
-                type: 'object',
-                title: 'Link',
-                fields: [
-                  {
-                    name: 'href',
-                    type: 'url',
-                    title: 'Url',
-                  },
-                ],
-              },
-            ],
+            annotations: [],
             decorators: [
               {
                 title: 'Italic',
@@ -68,6 +55,19 @@ export default defineType({
           type: 'reference',
           to: [{type: 'project'}],
         }),
+      ],
+    }),
+    defineField({
+      name: 'blocks',
+      title: 'Content Blocks',
+      type: 'array',
+      description: 'Add, edit, and reorder content blocks',
+      of: [
+        defineArrayMember({ type: 'hero' }),
+        defineArrayMember({ type: 'features' }),
+        defineArrayMember({ type: 'splitImage' }),
+        defineArrayMember({ type: 'faqs' }),
+        defineArrayMember({ type: 'imageSlider' }),
       ],
     }),
   ],

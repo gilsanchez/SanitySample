@@ -18,6 +18,26 @@ export const homePageQuery = defineQuery(`
       }
     },
     title,
+    blocks[]{
+      _key,
+      _type,
+      title,
+      text,
+      image,
+      features[]{
+        _key,
+        _type,
+        title,
+        text
+      },
+      orientation,
+      faqs[]->{
+        _id,
+        title,
+        body,
+        text
+      }
+    }
   }
 `)
 
@@ -29,6 +49,26 @@ export const pagesBySlugQuery = defineQuery(`
     overview,
     title,
     "slug": slug.current,
+    blocks[]{
+      _key,
+      _type,
+      title,
+      text,
+      image,
+      features[]{
+        _key,
+        _type,
+        title,
+        text
+      },
+      orientation,
+      faqs[]->{
+        _id,
+        title,
+        body,
+        text
+      }
+    }
   }
 `)
 
@@ -45,6 +85,26 @@ export const projectBySlugQuery = defineQuery(`
     "slug": slug.current,
     tags,
     title,
+    blocks[]{
+      _key,
+      _type,
+      title,
+      text,
+      image,
+      features[]{
+        _key,
+        _type,
+        title,
+        text
+      },
+      orientation,
+      faqs[]->{
+        _id,
+        title,
+        body,
+        text
+      }
+    }
   }
 `)
 
@@ -62,6 +122,26 @@ export const settingsQuery = defineQuery(`
       }
     },
     ogImage,
+    blocks[]{
+      _key,
+      _type,
+      title,
+      text,
+      image,
+      features[]{
+        _key,
+        _type,
+        title,
+        text
+      },
+      orientation,
+      faqs[]->{
+        _id,
+        title,
+        body,
+        text
+      }
+    }
   }
 `)
 
